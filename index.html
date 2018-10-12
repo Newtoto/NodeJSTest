@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Asteroids</title>
+    <script src="client/js/lib/vector2.js"></script>
+    <script src="client/js/lib/vector3.js"></script>
+    <script src="client/js/lib/vector4.js"></script>
+    <script src="client/js/lib/matrix.js"></script>
+    <script src="client/js/lib/rect.js"></script>
+    <script src="client/js/lib/size.js"></script>
+    <script src="client/js/lib/circularcollider.js"></script>
+    <script src="client/js/lib/rectcollider.js"></script>
+
+    <script src="client/js/lib/input_keycodes.js"></script>
+    <script src="client/js/lib/input.js"></script>
+    <script src="client/js/lib/canvas.js"></script>
+    <script src="client/js/lib/gazcanvas.js"></script>
+    <script src="client/js/lib/statemachine.js"></script>
+    <script src="client/js/lib/httpclient.js"></script>
+    <script src="client/js/lib/texturepage.js"></script>
+
+
+    <script src="client/js/game/gamestates.js"></script>
+    <script src="client/js/game/baseobject.js"></script>
+    <script src="client/js/game/ship.js"></script>
+    <script src="client/js/game/rock.js"></script>
+    <script src="client/js/game/bullet.js"></script>
+    <script src="client/js/game/explosionmanager.js"></script>
+
+    <script src="client/js/game/astgame.js"></script>
+
+    <!--https://fonts.google.com/-->
+    <link href='https://fonts.googleapis.com/css?family=Archivo Black' rel='stylesheet'>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+</html>
+
+<script>
+    document.documentElement.style.overflow = 'hidden';  // firefox, chrome
+    document.body.scroll = "no"; // ie only
+    document.body.style.padding = 0;
+    document.body.style.margin = 0;
+
+    AstGameInst.Run();
+</script>
+
+<script src = "/socket.io/socket.io.js"></script>
+
+<script>
+    var username = "Usery Name";
+
+    const socket = io();
+
+    // Received message types
+    // Connection
+    socket.on('connect', function(){
+        socket.emit('connectedPlayer', username)
+    })
+    // Disconnection
+    socket.on('disconnect', function(){
+        console.log('Socket disconnected');
+    })
+    // News message type
+    socket.on('info', data => {
+        console.log(data);
+    });
+
+</script>

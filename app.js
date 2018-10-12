@@ -31,7 +31,7 @@ db.close()
 server.listen(3000);
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/client/index.html');
+    res.sendFile(__dirname + '/index.html');
 });
 app.use('/client', express.static(__dirname + '/client'));
 
