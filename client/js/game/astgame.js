@@ -31,7 +31,7 @@ class AstGame
     {
         GAZCanvas.referenceScreenSize = new Size(1600,900);
         
-        this.stateMachine.addState(GameState_Test.label(), new GameState_Test());
+        //this.stateMachine.addState(GameState_Test.label(), new GameState_Test());
         this.stateMachine.addState(GameState_Attract.label(), new GameState_Attract());
         this.stateMachine.addState(GameState_StartGame.label(), new GameState_StartGame());
         this.stateMachine.addState(GameState_CreateWave.label(), new GameState_CreateWave());
@@ -70,7 +70,7 @@ class AstGame
     resetScore()
     {
         this.score = 0;
-        this.ships = 3;
+        this.ships = 1;
     }
     
     placeShip()

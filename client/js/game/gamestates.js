@@ -97,7 +97,7 @@ class GameState_Attract extends StateMachineState
         GAZCanvas.Rect(this.testRect,'rgb(255,255,255)');
         GAZCanvas.Rect(new Rect(this.testRect.x+5, this.testRect.y+5, this.testRect.w-10,this.testRect.h-10),'rgb(0,0,0)');
 
-        GAZCanvas.Text(160, "ASTEROIDS",new Vector2(1600/2,100),'#ffffff','center','Archivo Black');
+        GAZCanvas.Text(160, "GAMENAME",new Vector2(1600/2,100),'#ffffff','center','Archivo Black');
     
         GAZCanvas.Text(30, "LEFT - rotate left",new Vector2(800,395),'#ffffff','center','Archivo Black');
         GAZCanvas.Text(30, "RIGHT - rotate right",new Vector2(800,430),'#ffffff','center','Archivo Black');
@@ -340,11 +340,12 @@ class GameState_GameOver extends StateMachineState
     {
         super.update();
     
-        if(this.frameCount > (8*30) )
+        if(Input.getKeystate(KEYCODE_space_bar) == 'pressed')
         {
+            // CHANGE GAME STATE
             AstGameInst.stateMachine.setState(GameState_Attract.label());
         }
-    else
+        else
         {
             AstGameInst.update();
         }
@@ -359,6 +360,7 @@ class GameState_GameOver extends StateMachineState
         {
             GAZCanvas.Text(160,"GAME", new Vector2(800,300),'#ffffff','center','Archivo Black');
             GAZCanvas.Text(160,"OVER", new Vector2(800,450),'#ffffff','center','Archivo Black');
+            GAZCanvas.Text(40, "Press SPACE to play",new Vector2(1600/2,875),'#ffffff','center','Archivo Black');
         }
     }
 }

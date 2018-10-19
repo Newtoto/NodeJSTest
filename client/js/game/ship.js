@@ -19,9 +19,9 @@ class Ship extends BaseObject
         this.transform = new Matrix();
         
         //define the ship model as an array of points
-        this.shipModel = [new Vector2(0, 20)
-            , new Vector2(10, -10)
-            , new Vector2(0, -5)
+        this.shipModel = [new Vector2(10, -10)
+            , new Vector2(10, 10)
+            , new Vector2(-10, 10)
             , new Vector2(-10, -10)];
     }
     
@@ -32,21 +32,36 @@ class Ship extends BaseObject
         this.position = new Vector2(GAZCanvas.referenceScreenSize.w / 2, GAZCanvas.referenceScreenSize.h / 2);
         this.velocity = new Vector2(0, 0);
         this.angle = 0;
+        this.movementSpeed = 2;
         this.lastShotTime = 0;
         this.invincibleTicker = 0;
         this.displayThrust = false;
+        this.facingRight = 1;
+        this.firingSpeed = 4;
     }
     
     update()
-    {
-        if (Input.getKeystate(KEYCODE_left_arrow) !== INPUT_NOT_PRESSED)
-        {
-            this.angle -= 0.1;
-        }
-        
+    {   
         if (Input.getKeystate(KEYCODE_right_arrow) !== INPUT_NOT_PRESSED)
         {
-            this.angle += 0.1;
+            this.position.x += this.movementSpeed;
+            this.facingRight = 1;
+        }
+
+        if (Input.getKeystate(KEYCODE_left_arrow) !== INPUT_NOT_PRESSED)
+        {
+            this.position.x -= this.movementSpeed;
+            this.facingRight = -1;
+        }
+
+        if (Input.getKeystate(KEYCODE_up_arrow) !== INPUT_NOT_PRESSED)
+        {
+            this.position.y -= this.movementSpeed;
+        }
+        
+        if (Input.getKeystate(KEYCODE_down_arrow) !== INPUT_NOT_PRESSED)
+        {
+            this.position.y += this.movementSpeed;
         }
         
         
@@ -64,11 +79,10 @@ class Ship extends BaseObject
                     
                     AstGameInst.bulletList.push(b);
                     
-                    let a = this.angle + (i - (mshot / 2)) * 0.1;
-                    
+                    let a = 55 * this.facingRight;
                     let m = Matrix.CreateRotationZ(a);
-                    
                     let bulletPos = m.TransformVector2(new Vector2(0, 20));
+                    
                     bulletPos.x += this.position.x;
                     bulletPos.y += this.position.y;
                     
@@ -83,47 +97,17 @@ class Ship extends BaseObject
         let thrusting = false;
         
         
-        if (Input.getKeystate(KEYCODE_up_arrow) != 'not_pressed')
-        {
-            let m = Matrix.CreateRotationZ(this.angle);
-            thrust = m.TransformVector2(new Vector2(0, 0.25));
+        // if (Input.getKeystate(KEYCODE_up_arrow) != 'not_pressed')
+        // {
+        //     let m = Matrix.CreateRotationZ(this.angle);
+        //     thrust = m.TransformVector2(new Vector2(0, 0.25));
             
-            thrusting = true;
-        }
-        else
-        {
-            thrusting = false;
-        }
-        
-        /*
-            Handle player movement.
-            The player has drag applied to it in order to slowly slow it down and the velocity is capped so it doesn't
-            go too fast and so that it will come to a stop
-         */
-        this.velocity.x += thrust.x;
-        this.velocity.y += thrust.y;
-        
-        let drag = new Vector2();
-        drag.x = this.velocity.x / -100.0;
-        drag.y = this.velocity.y / -100.0;
-        
-        this.velocity.x += drag.x;
-        this.velocity.y += drag.y;
-        
-        if (this.velocity.length() > 3)
-        {
-            this.velocity.normalize();
-            this.velocity.x *= 3;
-            this.velocity.y *= 3;
-        }
-        else
-        {
-            if (this.velocity.length() < 0.2)
-            {
-                this.velocity.x = 0;
-                this.velocity.y = 0;
-            }
-        }
+        //     thrusting = true;
+        // }
+        // else
+        // {
+        //     thrusting = false;
+        // }
         
         //wrap the ship around the screen, so if it goes off one edge, it will come back on the other
         if ((this.position.x + this.velocity.x) < 0)
