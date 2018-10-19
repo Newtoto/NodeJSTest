@@ -24,7 +24,7 @@ class AstGame
         this.score = 0;
         this.ships = 0;
         
-        this.shotInterlockTime = 30;
+        this.shotInterlockTime = 10;
     }
     
     oneTimeInit()

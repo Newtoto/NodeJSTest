@@ -32,7 +32,7 @@ class Ship extends BaseObject
         this.position = new Vector2(GAZCanvas.referenceScreenSize.w / 2, GAZCanvas.referenceScreenSize.h / 2);
         this.velocity = new Vector2(0, 0);
         this.angle = 0;
-        this.movementSpeed = 2;
+        this.movementSpeed = 5;
         this.lastShotTime = 0;
         this.invincibleTicker = 0;
         this.displayThrust = false;
