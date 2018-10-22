@@ -79,14 +79,14 @@ class Ship extends BaseObject
                     
                     AstGameInst.bulletList.push(b);
                     
-                    let a = 55 * this.facingRight;
-                    let m = Matrix.CreateRotationZ(a);
-                    let bulletPos = m.TransformVector2(new Vector2(0, 20));
-                    
+                    let a = 1.5 * Math.PI * this.facingRight;
+                    //let m = Matrix.CreateRotationZ(a);
+                    //let bulletPos = m.TransformVector2(new Vector2(0, 20));
+                    let bulletPos = new Vector2(0,0);
                     bulletPos.x += this.position.x;
                     bulletPos.y += this.position.y;
                     
-                    b.init(bulletPos, a);
+                    b.init(new Vector2(this.position.x, this.position.y), a);
                 }
                 
                 this.lastShotTime = AstGameInst.frameCount;
