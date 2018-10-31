@@ -49,7 +49,7 @@
         for (var player in playerData) {
             //context.fillText(playerData[player].number, playerData[player].x, playerData[player].y);
             context.beginPath();
-            context.arc(playerData[player].x, playerData[player].y, 70, 0, 2 * Math.PI, false);
+            context.arc(playerData[player].x, playerData[player].y, playerData[player].radius, 0, 2 * Math.PI, false);
             context.fillStyle = fillstyles[playerData[player].number];
             context.fill();
             context.lineWidth = 5;

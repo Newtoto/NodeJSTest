@@ -49,7 +49,9 @@ var newPlayer = id => {
         pressingDown: false,
         pressingLeft: false,
         pressingRight: false,
-        speed: 10
+        speed: 1,
+        radius: 20
+
     }
     self.updatePosition = function() {
         if(self.pressingUp)
@@ -147,9 +149,10 @@ setInterval(function(){
         // Get movement of the player
         player.updatePosition();
         package.push({
-            x:player.x,
-            y:player.y,
-            number:player.number
+            x: player.x,
+            y: player.y,
+            number: player.number,
+            radius: player.radius
         });
     }
     for(var socket in socketList) {
