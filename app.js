@@ -8,7 +8,7 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
 //const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('Scores');
+//const db = new sqlite3.Database('Scores');
 
 // How fast the server refreshes positions (in ms)
 const refreshSpeed = 5;
