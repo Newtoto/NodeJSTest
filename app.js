@@ -7,8 +7,11 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-const sqlite3 = require('sqlite3').verbose();
+//const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('Scores');
+
+// How fast the server refreshes positions (in ms)
+const refreshSpeed = 5;
 
 db.serialize(function () {
 //   db.run('CREATE TABLE lorem (info TEXT)');
@@ -40,6 +43,8 @@ var loggedInSockets = {};
 
 var loggedInPlayers = {};
 
+var socketId = 0;
+
 var newPlayer = username => {
     var self = {
         x: 250,
@@ -50,7 +55,7 @@ var newPlayer = username => {
         pressingDown: false,
         pressingLeft: false,
         pressingRight: false,
-        speed: 1,
+        speed: 2,
         radius: 20
 
     }
@@ -73,8 +78,10 @@ io.on('connection', (socket) => {
     var loggedIn = false;
     var player = null;
 
+    // Use socketId and increment for unique IDs
+    socket.id = socketId;
+    socketId ++
     // Add to all sockets
-    socket.id = Math.random();
     socketList[socket.id] = socket;
 
     socket.number = "" + Math.floor(10 * Math.random());
@@ -82,27 +89,12 @@ io.on('connection', (socket) => {
     // Send message to all players
     io.emit('info', 'User connected');
     
-    // Message types
-    // Handle player connection
-    // socket.on('connectedPlayer', playerInfo => {
-    //     // Create socket and add to list
-    //     socket.id = Math.random();
-    //     socketList[socket.id] = socket;
-
-    //     // Create player and add to list
-    //     var player = newPlayer(socket.id);
-    //     playerList[socket.id] = player;
-
-    //     socket.number = "" + Math.floor(10 * Math.random());
-    //     // Send message to player
-    //     sendInfoMessageToSocket(socket, 'Welcome to the server');
-    //     console.log(playerInfo);
-    // });
-    
     socket.on("loginPlayer", username => {
+        
+        // Append socketId to username
+        username += socket.id;
+        
         console.log("Logging in user: " + username);
-        // Save username to variable
-        this.username = username;
         
         // Remember logged in state
         loggedIn = true;
@@ -112,7 +104,7 @@ io.on('connection', (socket) => {
         loggedInPlayers[socket.id] = player;
 
         // Add socket to logged in sockets
-        loggedInSockets[player.username] = socket;
+        loggedInSockets[socket.id] = socket;
     })
 
 
@@ -123,9 +115,9 @@ io.on('connection', (socket) => {
 
         if(loggedIn) {
             // Remove socket from logged in sockets
-            delete socketList[player.username];
+            delete socketList[socket.id];
             // Remove player from list
-            delete loggedInPlayers[player.username];
+            delete loggedInPlayers[socket.id];
         } 
     });
 
@@ -182,4 +174,4 @@ setInterval(function(){
         var socket = loggedInSockets[socket];
         socket.emit("newPosition", package);
     }
-}, 1000/25);
+}, refreshSpeed);
