@@ -5,6 +5,8 @@
     <title>Nodeee</title>
 </head>
 <body>
+    <button id = "loginButton" onclick="login()">Hello</button>
+    <input id = "usernameInput" type="text" maxlength="10"/>
     <canvas id="canvas" width = "500" height = "500" style = "border:1px solid #000;"></canvas>
 </body>
 </html>
@@ -15,6 +17,18 @@
 <script src = "/socket.io/socket.io.js"></script>
 
 <script>
+    var loggedIn = false;
+
+    var login = function(){
+        var username = document.getElementById("usernameInput").value;
+        console.log(username);
+        socket.emit('loginPlayer', username);
+        loggedIn = true;
+    }
+</script>
+
+<script>
+
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
     context.font = "30px Arial";
@@ -24,13 +38,11 @@
         "white", "purple", "pink", "grey", "orange" 
     ];
 
-    var username = "Usery Name";
-
     const socket = io();
 
     // Received message types
-    // Connection
-    socket.on('connect', function(){
+    // Server confirms connection
+    socket.on('connect', username => {
         socket.emit('connectedPlayer', username)
     })
     // Disconnection
@@ -49,7 +61,7 @@
         for (var player in playerData) {
             //context.fillText(playerData[player].number, playerData[player].x, playerData[player].y);
             context.beginPath();
-            context.arc(playerData[player].x, playerData[player].y, playerData[player].radius, 0, 2 * Math.PI, false);
+            context.arc(playerData[player].x, playerData[player].y, 10, 0, 2 * Math.PI, false);
             context.fillStyle = fillstyles[playerData[player].number];
             context.fill();
             context.lineWidth = 5;
@@ -57,7 +69,9 @@
             context.stroke();
         }
     })
+</script>
 
+<script>
     // Detect keydown inputs
     document.addEventListener("keydown", event => {
         var keyId = "";
@@ -89,21 +103,23 @@
                 keyId = "right"
                 break;
         }
-
-        // Send pressed key to server
-        socket.emit("keyPress", {
+        
+        if(loggedIn){
+            // Send pressed key to server
+            socket.emit("keyPress", {
             inputId: keyId, 
             state: true
-        });
+            });
+        }    
     });
+
     // Detect keyup inputs
     document.addEventListener("keyup", event => {
         var keyId = "";
-
+        console.log(loggedIn);
         // Get key name from code
         switch (event.keyCode){
             case 87 || 38:    // W
-                console.log("up");
                 keyId = "up"
                 break;
             case 38:    // Up arrow
@@ -128,12 +144,13 @@
                 keyId = "right"
                 break;
         }
-
-        // Send pressed key to server
-        socket.emit("keyPress", {
+        
+        if(loggedIn){
+            // Send pressed key to server
+            socket.emit("keyPress", {
             inputId: keyId, 
             state: false
-        });
+            });
+        }
     });
-
 </script>

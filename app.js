@@ -36,14 +36,15 @@ app.get('/', (req, res) => {
 app.use('/client', express.static(__dirname + '/client'));
 
 var socketList = {};
+var loggedInSockets = {};
 
-var playerList = {};
+var loggedInPlayers = {};
 
-var newPlayer = id => {
+var newPlayer = username => {
     var self = {
         x: 250,
         y: 250,
-        id: id,
+        username: username,
         number: "" + Math.floor(10 * Math.random()),
         pressingUp: false,
         pressingDown: false,
@@ -68,13 +69,13 @@ var newPlayer = id => {
 
 // Handle messages
 io.on('connection', (socket) => {
-    
+
+    var loggedIn = false;
+    var player = null;
+
+    // Add to all sockets
     socket.id = Math.random();
     socketList[socket.id] = socket;
-
-    // Create player and add to list
-    var player = newPlayer(socket.id);
-    playerList[socket.id] = player;
 
     socket.number = "" + Math.floor(10 * Math.random());
 
@@ -98,12 +99,34 @@ io.on('connection', (socket) => {
     //     console.log(playerInfo);
     // });
     
+    socket.on("loginPlayer", username => {
+        console.log("Logging in user: " + username);
+        // Save username to variable
+        this.username = username;
+        
+        // Remember logged in state
+        loggedIn = true;
+
+        // Add player to logged in players
+        player = newPlayer(username);
+        loggedInPlayers[socket.id] = player;
+
+        // Add socket to logged in sockets
+        loggedInSockets[player.username] = socket;
+    })
+
+
     // Handle player disconnection
     socket.on("disconnect", function(){
-        // Remove socket from list
+        // Remove socket from all sockets list
         delete socketList[socket.id];
-        // Remove player from list
-        delete playerList[socket.id];
+
+        if(loggedIn) {
+            // Remove socket from logged in sockets
+            delete socketList[player.username];
+            // Remove player from list
+            delete loggedInPlayers[player.username];
+        } 
     });
 
     // Handle keypresses
@@ -144,8 +167,8 @@ sendInfoMessageToSocket = function(socket, msg){
 setInterval(function(){
     // Package info of all players' info
     var package = [];
-    for(var player in playerList) {
-        var player = playerList[player];
+    for(var player in loggedInPlayers) {
+        var player = loggedInPlayers[player];
         // Get movement of the player
         player.updatePosition();
         package.push({
@@ -155,8 +178,8 @@ setInterval(function(){
             radius: player.radius
         });
     }
-    for(var socket in socketList) {
-        var socket = socketList[socket];
+    for(var socket in loggedInSockets) {
+        var socket = loggedInSockets[socket];
         socket.emit("newPosition", package);
     }
 }, 1000/25);
