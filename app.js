@@ -13,7 +13,7 @@ const io = require('socket.io')(server);
 // How fast the server refreshes positions (in ms)
 const refreshSpeed = 5;
 
-db.serialize(function () {
+//db.serialize(function () {
 //   db.run('CREATE TABLE lorem (info TEXT)');
 //   var stmt = db.prepare('INSERT INTO lorem VALUES (?)');
 
@@ -23,12 +23,12 @@ db.serialize(function () {
 
 //   stmt.finalize();
 
-  db.each('SELECT rowid AS id, info FROM lorem', function (err, row) {
-    console.log(row.id + ': ' + row.info);
-  });
-});
+//   db.each('SELECT rowid AS id, info FROM lorem', function (err, row) {
+//     console.log(row.id + ': ' + row.info);
+//   });
+// });
 
-db.close()
+//db.close()
 // const angular = require('angular').Server(app);
 
 server.listen(port);
