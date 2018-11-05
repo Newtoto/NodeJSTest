@@ -26,10 +26,6 @@ socket.on("newPosition", playerData => {
         // Draw player circle or sprite
         if(thisPlayer.playerImageSrc !== undefined && thisPlayer.playerImageSrc !== null)
         {
-            if(sendDebugOnce){
-                console.log(thisPlayer.playerImageSrc);
-                sendDebugOnce = false;
-            }
             var image = new Image();
             image.src = thisPlayer.playerImageSrc;
             context.drawImage(image, thisPlayer.x - thisPlayer.radius, thisPlayer.y - thisPlayer.radius, thisPlayer.radius * 2, thisPlayer.radius * 2);

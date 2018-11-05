@@ -14,13 +14,17 @@ var openFile = function(e) {
 };
 
 var login = function(){
+    // Gather player info
     var username = document.getElementById("usernameInput").value;
-    
     var data = {};
     data.username = username;
-    data.playerImageSrc = playerImage.src;
+    if(playerImage !== null)
+        data.playerImageSrc = playerImage.src;
 
+    // Send info to server
     socket.emit('loginPlayer', data);
+
+    // Allows directional keypresses to be sent to server
     loggedIn = true;
 
     // Delete login html
