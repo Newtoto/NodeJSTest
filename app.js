@@ -24,12 +24,13 @@ var loggedInPlayers = {};
 
 var socketId = 0;
 
-var newPlayer = (username, displayName) => {
+var newPlayer = (username, displayName, playerImageSrc) => {
     var self = {
         x: 250,
         y: 250,
         username: username,
         displayName: displayName,
+        playerImageSrc: playerImageSrc,
         number: "" + Math.floor(10 * Math.random()),
         pressingUp: false,
         pressingDown: false,
@@ -37,7 +38,6 @@ var newPlayer = (username, displayName) => {
         pressingRight: false,
         speed: 2,
         radius: 20
-
     }
     self.updatePosition = function() {
         if(self.pressingUp)
@@ -72,9 +72,13 @@ io.on('connection', (socket) => {
     // Send message to all players
     io.emit('info', 'User connected');
     
-    socket.on("loginPlayer", username => {
+    socket.on("loginPlayer", data => {
         
-        console.log(username);
+        var username = data.username;
+        var playerImageSrc = data.playerImageSrc;
+
+        console.log("Logging in: " + username);
+        console.log("Player image: " + playerImageSrc);
 
         // Display as anonymous if no username set
         if (username == "")
@@ -92,7 +96,7 @@ io.on('connection', (socket) => {
         loggedIn = true;
 
         // Add player to logged in players
-        player = newPlayer(username, displayName);
+        player = newPlayer(username, displayName, playerImageSrc);
         loggedInPlayers[socket.id] = player;
 
         // Add socket to logged in sockets
@@ -157,6 +161,7 @@ setInterval(function(){
         player.updatePosition();
         package.push({
             displayName: player.displayName,
+            playerImageSrc: player.playerImageSrc,
             x: player.x,
             y: player.y,
             number: player.number,

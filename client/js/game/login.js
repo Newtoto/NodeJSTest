@@ -2,10 +2,25 @@
 var loggedIn = false;
 const socket = io();
 
+// Custom player image
+var playerImage = null;
+    
+var openFile = function(e) {
+    playerImage = new Image();
+    playerImage.onload = function(){
+        // Player image loaded
+    };
+    playerImage.src =  URL.createObjectURL(e.target.files[0]);
+};
+
 var login = function(){
     var username = document.getElementById("usernameInput").value;
-    console.log(username);
-    socket.emit('loginPlayer', username);
+    
+    var data = {};
+    data.username = username;
+    data.playerImageSrc = playerImage.src;
+
+    socket.emit('loginPlayer', data);
     loggedIn = true;
 
     // Delete login html
@@ -28,6 +43,7 @@ var login = function(){
 
     // Disconnection
     socket.on('disconnect', function(){
+        // TODO - RELOAD LOGIN SCREEN
         loggedIn = false;
         console.log('Socket disconnected');
     })
