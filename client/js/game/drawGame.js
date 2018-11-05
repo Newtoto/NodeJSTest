@@ -13,8 +13,6 @@ getGameCanvas = function(){
     context.font = "30px Arial";
 }
 
-var sendDebugOnce = true;
-
 // Update positions
 socket.on("newPosition", playerData => {
     context.clearRect(0, 0, 500, 500);
@@ -32,10 +30,6 @@ socket.on("newPosition", playerData => {
         }
         else
         {
-            if(sendDebugOnce){
-                console.log(thisPlayer.playerImageSrc);
-                sendDebugOnce = false;
-            }
             context.arc(thisPlayer.x, thisPlayer.y, thisPlayer.radius, 0, 2 * Math.PI, false);
             // Select player's colour
             context.fillStyle = fillstyles[thisPlayer.number];

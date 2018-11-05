@@ -119,7 +119,6 @@ io.on('connection', (socket) => {
 
     // Handle keypresses
     socket.on("keyPress", data => {
-        console.log("Key pressed: " + data.inputId);
         switch(data.inputId){
             case "up":
                 player.pressingUp = data.state;

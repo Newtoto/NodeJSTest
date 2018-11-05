@@ -42,7 +42,6 @@ document.addEventListener("keydown", event => {
 // Detect keyup inputs
 document.addEventListener("keyup", event => {
     var keyId = "";
-    console.log(loggedIn);
     // Get key name from code
     switch (event.keyCode){
         case 87 || 38:    // W
