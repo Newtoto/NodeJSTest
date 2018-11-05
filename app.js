@@ -7,8 +7,8 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-// How fast the server refreshes positions (in ms)
-const refreshSpeed = 5;
+// How often the server refreshes positions (in ms)
+const refreshSpeed = 10;
 
 server.listen(port);
 
