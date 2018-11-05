@@ -7,29 +7,8 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-//const sqlite3 = require('sqlite3').verbose();
-//const db = new sqlite3.Database('Scores');
-
 // How fast the server refreshes positions (in ms)
 const refreshSpeed = 5;
-
-//db.serialize(function () {
-//   db.run('CREATE TABLE lorem (info TEXT)');
-//   var stmt = db.prepare('INSERT INTO lorem VALUES (?)');
-
-//   for (var i = 0; i < 10; i++) {
-//     stmt.run('Ipsum ' + i);
-//   }
-
-//   stmt.finalize();
-
-//   db.each('SELECT rowid AS id, info FROM lorem', function (err, row) {
-//     console.log(row.id + ': ' + row.info);
-//   });
-// });
-
-//db.close()
-// const angular = require('angular').Server(app);
 
 server.listen(port);
 
@@ -45,11 +24,12 @@ var loggedInPlayers = {};
 
 var socketId = 0;
 
-var newPlayer = username => {
+var newPlayer = (username, displayName) => {
     var self = {
         x: 250,
         y: 250,
         username: username,
+        displayName: displayName,
         number: "" + Math.floor(10 * Math.random()),
         pressingUp: false,
         pressingDown: false,
@@ -75,6 +55,9 @@ var newPlayer = username => {
 // Handle messages
 io.on('connection', (socket) => {
 
+    // Tell player about successfull connection
+    socket.emit('connect');
+
     var loggedIn = false;
     var player = null;
 
@@ -91,6 +74,9 @@ io.on('connection', (socket) => {
     
     socket.on("loginPlayer", username => {
         
+        // Save username as display name without socket id
+        displayName = username;
+
         // Append socketId to username
         username += socket.id;
         
@@ -100,7 +86,7 @@ io.on('connection', (socket) => {
         loggedIn = true;
 
         // Add player to logged in players
-        player = newPlayer(username);
+        player = newPlayer(username, displayName);
         loggedInPlayers[socket.id] = player;
 
         // Add socket to logged in sockets
@@ -164,6 +150,7 @@ setInterval(function(){
         // Get movement of the player
         player.updatePosition();
         package.push({
+            displayName: player.displayName,
             x: player.x,
             y: player.y,
             number: player.number,

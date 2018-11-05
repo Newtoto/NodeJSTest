@@ -1,156 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Nodeee</title>
-</head>
-<body>
-    <button id = "loginButton" onclick="login()">Hello</button>
-    <input id = "usernameInput" type="text" maxlength="10"/>
-    <canvas id="canvas" width = "500" height = "500" style = "border:1px solid #000;"></canvas>
-</body>
+<html lang="en" style = "font-family: Arial, Helvetica, sans-serif">
+    <head>
+        <meta charset="UTF-8">
+        <title>Nodeee</title>
+    </head>
+    <body>
+        <div id = "login">
+            <h1>Welcome to 2D VR Chat</h1>
+            <button id = "loginButton" onclick="login()">Log In</button>
+            <input id = "usernameInput" type="text" maxlength="10"/>
+        </div>
+        <div id = "game">
+            
+        </div>
+    </body>
 </html>
-
-<script>
-</script>
 
 <script src = "/socket.io/socket.io.js"></script>
 
-<script>
-    var loggedIn = false;
+<!-- Handle player login -->
+<script src = "./client/js/game/login.js"></script>
 
-    var login = function(){
-        var username = document.getElementById("usernameInput").value;
-        console.log(username);
-        socket.emit('loginPlayer', username);
-        loggedIn = true;
-    }
-</script>
+<!-- Draws game state on canvas -->
+<script src = "./client/js/game/drawGame.js"></script>
 
-<script>
-
-    var canvas = document.getElementById("canvas");
-    var context = canvas.getContext("2d");
-    context.font = "30px Arial";
-
-    var fillstyles = [
-        "green", "red", "yellow", "black", "blue", 
-        "white", "purple", "pink", "grey", "orange" 
-    ];
-
-    const socket = io();
-
-    // Received message types
-    // Server confirms connection
-    socket.on('connect', username => {
-        socket.emit('connectedPlayer', username)
-    })
-    // Disconnection
-    socket.on('disconnect', function(){
-        console.log('Socket disconnected');
-    })
-
-    // News message type
-    socket.on('info', data => {
-        console.log(data);
-    });
-
-    // Update positions
-    socket.on("newPosition", playerData => {
-        context.clearRect(0, 0, 500, 500);
-        for (var player in playerData) {
-            //context.fillText(playerData[player].number, playerData[player].x, playerData[player].y);
-            context.beginPath();
-            context.arc(playerData[player].x, playerData[player].y, 10, 0, 2 * Math.PI, false);
-            context.fillStyle = fillstyles[playerData[player].number];
-            context.fill();
-            context.lineWidth = 5;
-            context.strokeStyle = '#003300';
-            context.stroke();
-        }
-    })
-</script>
-
-<script>
-    // Detect keydown inputs
-    document.addEventListener("keydown", event => {
-        var keyId = "";
-
-        // Get key name from code
-        switch (event.keyCode){
-            case 87:    // W
-                keyId = "up"
-                break;
-            case 38:    // Up arrow
-                keyId = "up"
-                break;
-            case 65:    // A
-                keyId = "left"
-                break;
-            case 37:    // Left arrow
-                keyId = "left"
-                break;
-            case 83:    // S
-                keyId = "down"
-                break;
-            case 40:    // Down arrow
-                keyId = "down"
-                break;
-            case 68:    // D
-                keyId = "right"
-                break;
-            case 39:    // Right arrow
-                keyId = "right"
-                break;
-        }
-        
-        if(loggedIn){
-            // Send pressed key to server
-            socket.emit("keyPress", {
-            inputId: keyId, 
-            state: true
-            });
-        }    
-    });
-
-    // Detect keyup inputs
-    document.addEventListener("keyup", event => {
-        var keyId = "";
-        console.log(loggedIn);
-        // Get key name from code
-        switch (event.keyCode){
-            case 87 || 38:    // W
-                keyId = "up"
-                break;
-            case 38:    // Up arrow
-                keyId = "up"
-                break;
-            case 65 || 37:    // A
-                keyId = "left"
-                break;
-            case 37:    // Left arrow
-                keyId = "left"
-                break;
-            case 83:    // S
-                keyId = "down"
-                break;
-            case 40:    // Down arrow
-                keyId = "down"
-                break;
-            case 68 || 39:    // D
-                keyId = "right"
-                break;
-            case 39:    // Right arrow
-                keyId = "right"
-                break;
-        }
-        
-        if(loggedIn){
-            // Send pressed key to server
-            socket.emit("keyPress", {
-            inputId: keyId, 
-            state: false
-            });
-        }
-    });
-</script>
+<!-- Handles player input -->
+<script src = "./client/js/game/playerController.js"></script>
