@@ -74,6 +74,12 @@ io.on('connection', (socket) => {
     
     socket.on("loginPlayer", username => {
         
+        console.log(username);
+
+        // Display as anonymous if no username set
+        if (username == "")
+            username = "Anonymous";
+        
         // Save username as display name without socket id
         displayName = username;
 
