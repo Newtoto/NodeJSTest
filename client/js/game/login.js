@@ -10,9 +10,23 @@ var openFile = function(e) {
     playerImage.onload = function(){
         // Player image loaded
     };
+
     // Make sure image has been selected
     if(e.target.files[0] !== undefined)
-        playerImage.src =  URL.createObjectURL(e.target.files[0]);
+    {
+        // Check file is smaller than 1MB
+        if(e.target.files[0].size/1024/1024 > 0.5)
+        {
+            // Defult player to circle
+            playerImage = null;
+            // Alert player
+            alert("File may not exceed 500KB");
+        }
+        else {
+            playerImage.src =  URL.createObjectURL(e.target.files[0]);
+        }
+            
+    }
     else
         playerImage = null;
 };

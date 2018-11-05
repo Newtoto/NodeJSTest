@@ -7,7 +7,6 @@ var fillstyles = [
 ];
 
 getGameCanvas = function(){
-    console.log("getting canvas");
     canvas = document.getElementById("canvas");
     context = canvas.getContext("2d");
     context.font = "30px Arial";
