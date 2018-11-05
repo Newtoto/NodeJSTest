@@ -10,7 +10,11 @@ var openFile = function(e) {
     playerImage.onload = function(){
         // Player image loaded
     };
-    playerImage.src =  URL.createObjectURL(e.target.files[0]);
+    // Make sure image has been selected
+    if(e.target.files[0] !== undefined)
+        playerImage.src =  URL.createObjectURL(e.target.files[0]);
+    else
+        playerImage = null;
 };
 
 var login = function(){
