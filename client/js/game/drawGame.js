@@ -20,8 +20,8 @@ socket.on("newPosition", playerData => {
     context.clearRect(0, 0, 500, 500);
     for (var player in playerData) {
         var thisPlayer = playerData[player];
-        var nameOffset = 10;
-        var chatOffset = 20;
+        var nameOffset = 20;
+        var chatOffset = 10;
 
         context.textAlign="center"; 
         // Draw player circle or sprite
@@ -45,9 +45,9 @@ socket.on("newPosition", playerData => {
         }
         // Draw player name
         context.font = "15px Arial";
-        context.fillText(thisPlayer.displayName,thisPlayer.x, thisPlayer.y - thisPlayer.radius - nameOffset);
+        context.fillText(thisPlayer.displayName,thisPlayer.x, thisPlayer.y + thisPlayer.radius + nameOffset);
         // Draw player chat
-        context.fillText(thisPlayer.chat,thisPlayer.x, thisPlayer.y + thisPlayer.radius + chatOffset);
+        context.fillText(thisPlayer.chat,thisPlayer.x, thisPlayer.y - thisPlayer.radius - chatOffset);
     }
 })
 
