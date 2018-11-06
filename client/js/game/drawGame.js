@@ -1,6 +1,6 @@
 var canvas = null;
 var context = null;
-var chatInput;
+var chatInput = "";
 
 var fillstyles = [
     "green", "red", "yellow", "black", "blue", 
@@ -12,12 +12,15 @@ initialiseGame = function(){
     context = canvas.getContext("2d");
     context.font = "30px Arial";
 
+    gameDiv = document.getElementById("game");
+    gameDiv.setAttribute("style", "display: inline");
+
     chatInput = document.getElementById("chatInput");
 }
 
 // Update positions
 socket.on("newPosition", playerData => {
-    context.clearRect(0, 0, 500, 500);
+    context.clearRect(0, 0, 1920, 1080);
     for (var player in playerData) {
         var thisPlayer = playerData[player];
         var nameOffset = 20;

@@ -21,7 +21,7 @@ document.addEventListener('mousedown', event => {
     focus = event.target;
 
     // Stop movement when typing in chat
-    if(focus.id == "chatInput")
+    if(focus.id == "chatInput" && loggedIn)
         diableMovement();
     else
         allowMovement = true;
