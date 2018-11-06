@@ -47,6 +47,7 @@ socket.on("newPosition", playerData => {
         context.font = "15px Arial";
         context.fillText(thisPlayer.displayName,thisPlayer.x, thisPlayer.y + thisPlayer.radius + nameOffset);
         // Draw player chat
+        context.fillStyle = "#008080";
         context.fillText(thisPlayer.chat,thisPlayer.x, thisPlayer.y - thisPlayer.radius - chatOffset);
     }
 })

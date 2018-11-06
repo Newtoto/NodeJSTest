@@ -53,7 +53,7 @@ var login = function(){
     var parent = document.getElementById("game");
     // var canvas = document.createElement("canvas");
     // newElement.setAttribute("id", "canvas");
-    parent.innerHTML = '<canvas id="canvas" width = "500" height = "500" style = "border:1px solid #000;"></canvas><input id = "chatInput" type="text" maxlength="20"/><button id = "sendChatButton" onclick="sendChat()">Send</button>';
+    parent.innerHTML = '<canvas id="canvas" width = "500" height = "500" style = "border:1px solid #000;"></canvas><input id = "chatInput" type="text" maxlength="30"/><button id = "sendChatButton" onclick="sendChat()">Send</button>';
     // parent.appendChild(newElement);
     initialiseGame();
 

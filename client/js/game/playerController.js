@@ -36,6 +36,9 @@ document.addEventListener("keydown", event => {
         case 9:     // TAB (Disable movement if tab pressed to chat)
             diableMovement();
             break;
+        case 13:    // Enter
+            sendChat();
+            break;
         case 87:    // W
             keyId = "up"
             break;
