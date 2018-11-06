@@ -11,7 +11,6 @@
             <button id = "loginButton" onclick="login()">Log In</button>
             <input id = "usernameInput" type="text" maxlength="10"/>
             <input type='file' accept='image/*' onchange='openFile(event)'><br>
-            <img id='output'/>
         </div>
         <div id = "game">
             
@@ -26,6 +25,17 @@
 
 <!-- Draws game state on canvas -->
 <script src = "./client/js/game/drawGame.js"></script>
+
+<script>
+var sendChat = function() {
+    console.log(chatInput.value);
+
+    socket.emit("chat", chatInput.value);
+
+    // Remove input to allow for more chats
+    chatInput.value = "";
+}
+</script>
 
 <!-- Handles player input -->
 <script src = "./client/js/game/playerController.js"></script>

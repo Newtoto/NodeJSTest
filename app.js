@@ -17,11 +17,14 @@ app.get('/', (req, res) => {
 });
 app.use('/client', express.static(__dirname + '/client'));
 
+// Keep track of all connected users
 var socketList = {};
 var loggedInSockets = {};
 
+// Used to draw players on the game screen
 var loggedInPlayers = {};
 
+// Increments to keep unique usernames
 var socketId = 0;
 
 var newPlayer = (username, displayName, playerImageSrc) => {
@@ -37,7 +40,8 @@ var newPlayer = (username, displayName, playerImageSrc) => {
         pressingLeft: false,
         pressingRight: false,
         speed: 2,
-        radius: 20
+        radius: 20,
+        chat: "Test"
     }
     self.updatePosition = function() {
         if(self.pressingUp)
@@ -136,8 +140,8 @@ io.on('connection', (socket) => {
     })
 
     // Info received
-    socket.on('globalMessage', message => {
-        io.emit('info', message);
+    socket.on('chat', message => {
+        player.chat = message;
     });
 
     // Info received
@@ -164,7 +168,8 @@ setInterval(function(){
             x: player.x,
             y: player.y,
             number: player.number,
-            radius: player.radius
+            radius: player.radius,
+            chat: player.chat
         });
     }
     for(var socket in loggedInSockets) {
