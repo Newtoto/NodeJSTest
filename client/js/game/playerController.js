@@ -1,3 +1,17 @@
+var focus;
+var allowMovement = true;
+
+document.addEventListener('mousedown', event => {
+    focus = event.target;
+
+    // Stop movement when typing in chat
+    if(focus.id == "chatInput")
+        allowMovement = false;
+    else
+        allowMovement = true;
+    console.log("allow movement: " + allowMovement);
+});
+
 // Detect keydown inputs
 document.addEventListener("keydown", event => {
     var keyId = "";
@@ -30,7 +44,7 @@ document.addEventListener("keydown", event => {
             break;
     }
     
-    if(loggedIn){
+    if(loggedIn && allowMovement){
         // Send pressed key to server
         socket.emit("keyPress", {
         inputId: keyId, 
