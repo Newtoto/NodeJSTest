@@ -26,16 +26,8 @@
 <!-- Draws game state on canvas -->
 <script src = "./client/js/game/drawGame.js"></script>
 
-<script>
-var sendChat = function() {
-    console.log(chatInput.value);
-
-    socket.emit("chat", chatInput.value);
-
-    // Remove input to allow for more chats
-    chatInput.value = "";
-}
-</script>
+<!-- Sends chat to server -->
+<script src = "./client/js/game/chat.js"></script>
 
 <!-- Handles player input -->
 <script src = "./client/js/game/playerController.js"></script>

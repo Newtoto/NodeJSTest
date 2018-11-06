@@ -41,7 +41,7 @@ var newPlayer = (username, displayName, playerImageSrc) => {
         pressingRight: false,
         speed: 2,
         radius: 20,
-        chat: "Test"
+        chat: ""
     }
     self.updatePosition = function() {
         if(self.pressingUp)
@@ -142,12 +142,6 @@ io.on('connection', (socket) => {
     // Info received
     socket.on('chat', message => {
         player.chat = message;
-    });
-
-    // Info received
-    socket.on('simpleMessageToServer', data => {
-        io.emit('info', data);
-        console.log(data.msg);
     });
 })
 
