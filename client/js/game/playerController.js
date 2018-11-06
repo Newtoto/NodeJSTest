@@ -1,15 +1,30 @@
 var focus;
 var allowMovement = true;
 
+var diableMovement = function() {
+    allowMovement = false;
+
+    // Sets all keypresses to false
+    var keyIds = ["up", "left", "down", "right"];
+
+    for (var i = 0; i < keyIds.length; i++)
+    {
+        socket.emit("keyPress", {
+            inputId: keyIds[i], 
+            state: false
+        });
+    }
+}
+
+// Detect clicking to chat
 document.addEventListener('mousedown', event => {
     focus = event.target;
 
     // Stop movement when typing in chat
     if(focus.id == "chatInput")
-        allowMovement = false;
+        diableMovement();
     else
         allowMovement = true;
-    console.log("allow movement: " + allowMovement);
 });
 
 // Detect keydown inputs
@@ -18,6 +33,9 @@ document.addEventListener("keydown", event => {
 
     // Get key name from code
     switch (event.keyCode){
+        case 9:     // TAB (Disable movement if tab pressed to chat)
+            diableMovement();
+            break;
         case 87:    // W
             keyId = "up"
             break;
