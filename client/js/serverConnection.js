@@ -13,18 +13,18 @@ var login = function(){
 
     // Hide login div and show game div
     enableGame();
-
-    // Received message types
-    // Disconnection
-    socket.on('disconnect', function(){
-        // Hide game div and show login div
-        disableGame();
-        loggedIn = false;
-        console.log('Socket disconnected');
-    })
-
-    // News message type
-    socket.on('info', data => {
-        console.log(data);
-    });
 }
+
+// Received message types
+// Disconnection
+socket.on('disconnect', function(){
+    // Hide game div and show login div
+    disableGame();
+    loggedIn = false;
+    console.log('Socket disconnected');
+})
+
+// News message type
+socket.on('info', data => {
+    console.log(data);
+});

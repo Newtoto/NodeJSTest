@@ -71,8 +71,7 @@ var drawCircles = function(){
 
 drawCircles();
 
-// 10 - 50
-// 9 - 53
+// Listen to player clicking on circles canvas
 document.addEventListener('mousedown', event => {
     var rect = charCreationCanvas.getBoundingClientRect();
     var x = event.clientX - rect.left;
