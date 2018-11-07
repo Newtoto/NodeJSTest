@@ -1,3 +1,4 @@
+// Displays chat above player's head
 var sendChat = function() {
     console.log(chatInput.value);
 

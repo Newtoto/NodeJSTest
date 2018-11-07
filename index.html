@@ -11,6 +11,10 @@
             <button id = "loginButton" onclick="login()">Log In</button>
             <input id = "usernameInput" type="text" maxlength="10"/>
             <input type='file' accept='image/*' onchange='openFile(event)'><br>
+            <h3>Pick a colour</h3>
+            <canvas id = "charCreationCanvas" width = 550; height = 100;></canvas>
+            <h3>...or enter a custom hex value</h3>
+            <input id = "playerColour" type="text" maxlength="10"/>
         </div>
         <div id = "game" style="display:none">
             <h1 style = "width: 100%;"> WELCOME TO 2D VR CHAT</h1>
@@ -25,14 +29,20 @@
 
 <script src = "/socket.io/socket.io.js"></script>
 
-<!-- Handle player login -->
-<script src = "./client/js/game/login.js"></script>
+<!-- Handles character creation -->
+<script src = "./client/js/playerCreator.js"></script>
+
+<!-- Controlls which divs show -->
+<script src = "./client/js/divViewController.js"></script>
+
+<!-- Handles connection with server -->
+<script src = "./client/js/serverConnection.js"></script>
 
 <!-- Draws game state on canvas -->
-<script src = "./client/js/game/drawGame.js"></script>
+<script src = "./client/js/drawGame.js"></script>
 
 <!-- Sends chat to server -->
-<script src = "./client/js/game/chat.js"></script>
+<script src = "./client/js/chat.js"></script>
 
 <!-- Handles player input -->
-<script src = "./client/js/game/playerController.js"></script>
+<script src = "./client/js/playerController.js"></script>

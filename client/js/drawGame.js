@@ -2,21 +2,12 @@ var canvas = null;
 var context = null;
 var chatInput = "";
 
-var fillstyles = [
-    "green", "red", "yellow", "black", "blue", 
-    "white", "purple", "pink", "grey", "orange" 
-];
+// Get game canvas
+canvas = document.getElementById("canvas");
+context = canvas.getContext("2d");
 
-initialiseGame = function(){
-    canvas = document.getElementById("canvas");
-    context = canvas.getContext("2d");
-    context.font = "30px Arial";
-
-    gameDiv = document.getElementById("game");
-    gameDiv.setAttribute("style", "display: inline");
-
-    chatInput = document.getElementById("chatInput");
-}
+// Get chat input
+chatInput = document.getElementById("chatInput");
 
 // Update positions
 socket.on("newPosition", playerData => {
@@ -39,7 +30,7 @@ socket.on("newPosition", playerData => {
             context.beginPath();
             context.arc(thisPlayer.x, thisPlayer.y, thisPlayer.radius, 0, 2 * Math.PI, false);
             // Select player's colour
-            context.fillStyle = fillstyles[thisPlayer.number];
+            context.fillStyle = thisPlayer.colour;
             context.fill();
             context.fillStyle = "#000";
             context.lineWidth = 5;

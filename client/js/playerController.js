@@ -1,4 +1,3 @@
-var focus;
 var allowMovement = true;
 
 var diableMovement = function() {
@@ -18,7 +17,7 @@ var diableMovement = function() {
 
 // Detect clicking to chat
 document.addEventListener('mousedown', event => {
-    focus = event.target;
+    var focus = event.target;
 
     // Stop movement when typing in chat
     if(focus.id == "chatInput" && loggedIn)

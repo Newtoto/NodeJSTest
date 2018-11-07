@@ -27,13 +27,13 @@ var loggedInPlayers = {};
 // Increments to keep unique usernames
 var socketId = 0;
 
-var newPlayer = (username, displayName, playerImageSrc) => {
+var newPlayer = (playerInfo) => {
     var self = {
         x: 250,
         y: 250,
-        username: username,
-        displayName: displayName,
-        playerImageSrc: playerImageSrc,
+        displayName: playerInfo.displayName,
+        colour: playerInfo.colour,
+        icon: playerInfo.icon,
         number: "" + Math.floor(10 * Math.random()),
         pressingUp: false,
         pressingDown: false,
@@ -78,35 +78,28 @@ io.on('connection', (socket) => {
     
     socket.on("loginPlayer", data => {
         
-        var username = data.username;
-        var playerImageSrc = data.playerImageSrc;
+        var playerInfo = {};
 
-        console.log("Logging in: " + username);
-        console.log("Player image: " + playerImageSrc);
-
-        // Display as anonymous if no username set
-        if (username == "")
-            username = "Anonymous";
+        // Extract player info from message data
+        if (data.username == "")
+            playerInfo.displayName = "Anonymous";
         
-        // Save username as display name without socket id
-        displayName = username;
+        playerInfo.colour = data.colour;
+        playerInfo.icon = data.playerImageSrc;
 
-        // Append socketId to username
-        username += socket.id;
-        
-        console.log("Logging in user: " + username);
+
+        console.log("Logging in: " + playerInfo.displayName + " with socket ID " + socket.id);
         
         // Remember logged in state
         loggedIn = true;
 
-        // Add player to logged in players
-        player = newPlayer(username, displayName, playerImageSrc);
+        // Create player and add to logged in players
+        player = newPlayer(playerInfo);
         loggedInPlayers[socket.id] = player;
 
         // Add socket to logged in sockets
         loggedInSockets[socket.id] = socket;
     })
-
 
     // Handle player disconnection
     socket.on("disconnect", function(){
@@ -159,6 +152,7 @@ setInterval(function(){
         package.push({
             displayName: player.displayName,
             playerImageSrc: player.playerImageSrc,
+            colour: player.colour,
             x: player.x,
             y: player.y,
             number: player.number,
