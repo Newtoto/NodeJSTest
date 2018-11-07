@@ -4,13 +4,13 @@ var loginDiv = document.getElementById("login");
 var gameDiv = document.getElementById("game");
 
 // Show game div, hide login div
-var enableGame = function(){
+var EnableGame = function(){
     gameDiv.setAttribute("style", "display: inline");
     loginDiv.setAttribute("style", "display: none");
 }
 
 // Show login div, hide game div
-var disableGame = function(){
+var DisableGame = function(){
     loginDiv.setAttribute("style", "display: inline");
     gameDiv.setAttribute("style", "display: none");
 }

@@ -8,17 +8,19 @@
         <div id = "login">
             <h1>Log In to 2D VR Chat</h1>
             <h2>Insert username and click log in to start</h2>
-            <button id = "loginButton" onclick="login()">Log In</button>
+            <button id = "loginButton" onclick="Login()">Log In</button>
             <input id = "usernameInput" type="text" maxlength="10"/>
-            <input type='file' accept='image/*' onchange='openFile(event)'><br>
+            <input type='file' accept='image/*' onchange='OpenFile(event)'><br>
+            <h3>Pick a shape</h3>
+            <canvas id = "shapeSelectCanvas" width = 200; height = 100;></canvas>
             <h3>Pick a colour</h3>
-            <canvas id = "charCreationCanvas" width = 550; height = 100;></canvas>  
+            <canvas id = "colourSelectCanvas" width = 550; height = 100;></canvas>  
         </div>
         <div id = "game" style="display:none">
             <h1 style = "width: 100%;"> WELCOME TO 2D VR CHAT</h1>
             <div id = "chatDiv" style = "display: flex; position: fixed; bottom: 0; left:0; font-size: 3em; width: 100%; height: 2em;">
                 <input id = "chatInput" type="text" maxlength="30" style = "width: 80%; font-size: 0.8em;"/>
-                <button id = "sendChatButton" onclick="sendChat()" style = "width: 20%; font-size: 0.8em;">Send Chat</button>
+                <button id = "sendChatButton" onclick="SendChat()" style = "width: 20%; font-size: 0.8em;">Send Chat</button>
             </div>
             <canvas id="canvas" width = "1920" height = "1080" style = "border:1px solid #000;"></canvas>'
         </div>
@@ -26,6 +28,9 @@
 </html>
 
 <script src = "/socket.io/socket.io.js"></script>
+
+<!-- Functions for drawing shapes -->
+<script src = "client/js/drawShapes.js"></script>
 
 <!-- Handles character creation -->
 <script src = "./client/js/playerCreator.js"></script>

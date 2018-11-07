@@ -1,6 +1,6 @@
 var allowMovement = true;
 
-var diableMovement = function() {
+var DisableMovement = function() {
     allowMovement = false;
 
     // Sets all keypresses to false
@@ -21,7 +21,7 @@ document.addEventListener('mousedown', event => {
 
     // Stop movement when typing in chat
     if(focus.id == "chatInput")
-        diableMovement();
+        DisableMovement();
     else
         allowMovement = true;
 });
@@ -33,10 +33,10 @@ document.addEventListener("keydown", event => {
     // Get key name from code
     switch (event.keyCode){
         case 9:     // TAB (Disable movement if tab pressed to chat)
-            diableMovement();
+            DisableMovement();
             break;
         case 13:    // Enter
-            sendChat();
+            SendChat();
             break;
         case 87:    // W
             keyId = "up"

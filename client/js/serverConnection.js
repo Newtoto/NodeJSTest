@@ -1,26 +1,26 @@
 // Log in player
 const socket = io();
 
-var login = function(){
+var Login = function(){
     // Get player info
-    var data = getPlayerInfo();
+    var data = GetPlayerInfo();
     // Send info to server
     socket.emit('loginPlayer', data);
 
     // Hide login div and show game div
-    enableGame();
+    EnableGame();
 }
 
 // Received message types
 // Disconnection
 socket.on('disconnect', function(){
     // Hide game div and show login div
-    disableGame();
+    DisableGame();
     console.log('Socket disconnected');
 })
 
 socket.on("gameStateUpdate", gameStateData => {
-    updateGameState(gameStateData);
+    UpdateGameState(gameStateData);
 });
 
 // News message type
@@ -30,7 +30,7 @@ socket.on('info', data => {
 
 // Send message types
 // Displays chat above player's head
-var sendChat = function() {
+var SendChat = function() {
     console.log(chatInput.value);
 
     socket.emit("chat", chatInput.value);

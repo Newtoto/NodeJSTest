@@ -16,33 +16,41 @@ context.strokeStyle = "#000";
 chatInput = document.getElementById("chatInput");
 
 // Update positions
-var updateGameState = function(gamePlayerInfo){
+var UpdateGameState = function(gamePlayerInfo){
     context.clearRect(0, 0, 1920, 1080);
     
     for (var player in gamePlayerInfo) {
         var currentPlayer = gamePlayerInfo[player];
         var nameOffset = currentPlayer.radius;
         var chatOffset = currentPlayer.radius / 2;
-
         
-        // Draw player circle or sprite
+        // --- Draw players ---
+        // Sprite images
         if(currentPlayer.playerImageSrc !== undefined && currentPlayer.playerImageSrc !== null)
         {
             var image = new Image();
             image.src = currentPlayer.playerImageSrc;
             context.drawImage(image, currentPlayer.x - currentPlayer.radius, currentPlayer.y - currentPlayer.radius, currentPlayer.radius * 2, currentPlayer.radius * 2);
         }
+        // Shapes
         else
         {
-            context.beginPath();
-            context.arc(currentPlayer.x, currentPlayer.y, currentPlayer.radius, 0, 2 * Math.PI, false);
-            // Select player's colour
             context.fillStyle = currentPlayer.colour;
-            context.fill();
-            context.fillStyle = "#000";
-            context.stroke();
+
+            // Square
+            if(currentPlayer.shape == "square")
+            {
+                DrawSquare(currentPlayer.x - currentPlayer.radius, currentPlayer.y - currentPlayer.radius, currentPlayer.radius * 2, context)
+            }
+            // Default to circle
+            else 
+            {
+                // Circle
+                DrawCircle(currentPlayer.x, currentPlayer.y, currentPlayer.radius, context);
+            }
         }
         // Draw player name
+        context.fillStyle = "#000";
         context.font = "15px Arial";
         context.fillText(currentPlayer.displayName, currentPlayer.x, currentPlayer.y + currentPlayer.radius + nameOffset);
         // Draw player chat

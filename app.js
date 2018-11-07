@@ -32,9 +32,9 @@ var newPlayer = (playerInfo) => {
         x: 250,
         y: 250,
         displayName: playerInfo.displayName,
-        colour: playerInfo.colour,
         icon: playerInfo.icon,
-        number: "" + Math.floor(10 * Math.random()),
+        colour: playerInfo.colour,
+        shape: playerInfo.shape,
         pressingUp: false,
         pressingDown: false,
         pressingLeft: false,
@@ -85,10 +85,10 @@ io.on('connection', (socket) => {
             playerInfo.displayName = "Anonymous";
         else
             playerInfo.displayName = data.displayName;
-            
-        playerInfo.colour = data.colour;
-        playerInfo.icon = data.playerImageSrc;
 
+        playerInfo.icon = data.playerImageSrc;
+        playerInfo.colour = data.colour;
+        playerInfo.shape = data.shape;
 
         console.log("Logging in: " + playerInfo.displayName + " with socket ID " + socket.id);
         
@@ -158,9 +158,9 @@ setInterval(function(){
             displayName: player.displayName,
             playerImageSrc: player.playerImageSrc,
             colour: player.colour,
+            shape: player.shape,
             x: player.x,
             y: player.y,
-            number: player.number,
             radius: player.radius,
             chat: player.chat
         });
