@@ -8,7 +8,7 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
 // How often the server refreshes positions (in ms)
-const refreshSpeed = 10;
+const refreshSpeed = 60;
 
 server.listen(port);
 
@@ -39,7 +39,7 @@ var newPlayer = (playerInfo) => {
         pressingDown: false,
         pressingLeft: false,
         pressingRight: false,
-        speed: 2,
+        speed: 1,
         radius: 20,
         chat: ""
     }
