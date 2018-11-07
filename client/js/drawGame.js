@@ -39,15 +39,13 @@ var UpdateGameState = function(gamePlayerInfo){
 
             // Square
             if(currentPlayer.shape == "square")
-            {
-                DrawSquare(currentPlayer.x - currentPlayer.radius, currentPlayer.y - currentPlayer.radius, currentPlayer.radius * 2, context)
-            }
+                DrawSquare(currentPlayer.x - currentPlayer.radius, currentPlayer.y - currentPlayer.radius, currentPlayer.radius * 2, context);
+            // Triangle
+            else if (currentPlayer.shape == "triangle")
+                DrawTriangle(currentPlayer.x - currentPlayer.radius, currentPlayer.y - currentPlayer.radius, currentPlayer.radius * 2, context);
             // Default to circle
             else 
-            {
-                // Circle
                 DrawCircle(currentPlayer.x, currentPlayer.y, currentPlayer.radius, context);
-            }
         }
         // Draw player name
         context.fillStyle = "#000";
