@@ -7,14 +7,14 @@
     <body>
         <div id = "login">
             <h1>Log In to 2D VR Chat</h1>
-            <h2>Insert username and click log in to start</h2>
-            <button id = "loginButton" onclick="Login()">Log In</button>
-            <input id = "usernameInput" type="text" maxlength="10"/>
-            <input type='file' accept='image/*' onchange='OpenFile(event)'><br>
-            <h3>Pick a shape</h3>
+            <h3>1: Type a Username (optional)</h3>
+            <input id = "usernameInput" type="text" maxlength="10" style = "width: 50%; font-size: 1.2em;"/>
+            <h3>2: Pick a Shape</h3>
             <canvas id = "shapeSelectCanvas" width = 200; height = 100;></canvas>
-            <h3>Pick a colour</h3>
+            <h3>3: Choose your "Team"</h3>
             <canvas id = "colourSelectCanvas" width = 550; height = 100;></canvas>  
+            <h3>4: Join the Fun</h3>
+            <button id = "loginButton" style = "font-size: 1em; width: 50%; padding: 10px; border: none; background: teal" onclick="Login()">Log In</button>
         </div>
         <div id = "game" style="display:none">
             <h1 style = "width: 100%;"> WELCOME TO 2D VR CHAT</h1>

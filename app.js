@@ -32,7 +32,6 @@ var newPlayer = (playerInfo) => {
         x: 250,
         y: 250,
         displayName: playerInfo.displayName,
-        icon: playerInfo.icon,
         colour: playerInfo.colour,
         shape: playerInfo.shape,
         pressingUp: false,
@@ -156,7 +155,6 @@ setInterval(function(){
         player.updatePosition();
         package.push({
             displayName: player.displayName,
-            playerImageSrc: player.playerImageSrc,
             colour: player.colour,
             shape: player.shape,
             x: player.x,
