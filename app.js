@@ -81,9 +81,11 @@ io.on('connection', (socket) => {
         var playerInfo = {};
 
         // Extract player info from message data
-        if (data.username == "")
+        if (data.displayName == "")
             playerInfo.displayName = "Anonymous";
-        
+        else
+            playerInfo.displayName = data.displayName;
+            
         playerInfo.colour = data.colour;
         playerInfo.icon = data.playerImageSrc;
 
@@ -165,6 +167,6 @@ setInterval(function(){
     }
     for(var socket in loggedInSockets) {
         var socket = loggedInSockets[socket];
-        socket.emit("newPosition", package);
+        socket.emit("gameStateUpdate", package);
     }
 }, refreshSpeed);

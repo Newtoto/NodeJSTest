@@ -19,7 +19,21 @@ socket.on('disconnect', function(){
     console.log('Socket disconnected');
 })
 
+socket.on("gameStateUpdate", gameStateData => {
+    updateGameState(gameStateData);
+});
+
 // News message type
 socket.on('info', data => {
     console.log(data);
 });
+
+// Send message types
+// Displays chat above player's head
+var sendChat = function() {
+    console.log(chatInput.value);
+
+    socket.emit("chat", chatInput.value);
+    // Remove input to allow for more chats
+    chatInput.value = "";
+}

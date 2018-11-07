@@ -95,7 +95,7 @@ document.addEventListener('mousedown', event => {
 
 var getPlayerInfo = function() {
     // Get username
-    playerInfo.username = document.getElementById("usernameInput").value;
+    playerInfo.displayName = document.getElementById("usernameInput").value;
     // Get icon
     if(playerImage !== null)
         playerInfo.icon = playerImage.src;
