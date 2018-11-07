@@ -1,35 +1,6 @@
 // Store player info
 var playerInfo = {};
 
-// --- Custom player image ---
-var playerImage = null;
-    
-var OpenFile = function(e) {
-    playerImage = new Image();
-    playerImage.onload = function(){
-        // Player image loaded
-    };
-
-    // Make sure image has been selected
-    if(e.target.files[0] !== undefined)
-    {
-        // Check file is smaller than 1MB
-        if(e.target.files[0].size/1024/1024 > 0.5)
-        {
-            // Defult player to circle
-            playerImage = null;
-            // Alert player
-            alert("File may not exceed 500KB");
-        }
-        else {
-            playerImage.src =  URL.createObjectURL(e.target.files[0]);
-        }
-            
-    }
-    else
-        playerImage = null;
-};
-
 // --- Player colour selection ---
 var colourSelectCanvas = document.getElementById("colourSelectCanvas");
 var colourSelectContext = colourSelectCanvas.getContext("2d");

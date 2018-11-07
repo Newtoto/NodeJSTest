@@ -85,7 +85,6 @@ io.on('connection', (socket) => {
         else
             playerInfo.displayName = data.displayName;
 
-        playerInfo.icon = data.playerImageSrc;
         playerInfo.colour = data.colour;
         playerInfo.shape = data.shape;
 
