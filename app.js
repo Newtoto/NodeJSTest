@@ -136,7 +136,8 @@ io.on('connection', (socket) => {
 
     // Info received
     socket.on('chat', message => {
-        player.chat = message;
+        if(loggedIn)
+            player.chat = message;
     });
 })
 
