@@ -20,7 +20,7 @@ document.addEventListener('mousedown', event => {
     var focus = event.target;
 
     // Stop movement when typing in chat
-    if(focus.id == "chatInput" && loggedIn)
+    if(focus.id == "chatInput")
         diableMovement();
     else
         allowMovement = true;
@@ -64,7 +64,7 @@ document.addEventListener("keydown", event => {
             break;
     }
     
-    if(loggedIn && allowMovement){
+    if(allowMovement){
         // Send pressed key to server
         socket.emit("keyPress", {
         inputId: keyId, 
@@ -104,11 +104,9 @@ document.addEventListener("keyup", event => {
             break;
     }
     
-    if(loggedIn){
-        // Send pressed key to server
-        socket.emit("keyPress", {
-        inputId: keyId, 
-        state: false
-        });
-    }
+    // Send pressed key to server
+    socket.emit("keyPress", {
+    inputId: keyId, 
+    state: false
+    });
 });

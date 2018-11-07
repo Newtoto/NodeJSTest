@@ -116,19 +116,21 @@ io.on('connection', (socket) => {
 
     // Handle keypresses
     socket.on("keyPress", data => {
-        switch(data.inputId){
-            case "up":
-                player.pressingUp = data.state;
-                break;
-            case "down":
-                player.pressingDown = data.state;
-                break;
-            case "left":
-                player.pressingLeft = data.state;
-                break;
-            case "right":
-                player.pressingRight = data.state;
-                break;
+        if(loggedIn){
+            switch(data.inputId){
+                case "up":
+                    player.pressingUp = data.state;
+                    break;
+                case "down":
+                    player.pressingDown = data.state;
+                    break;
+                case "left":
+                    player.pressingLeft = data.state;
+                    break;
+                case "right":
+                    player.pressingRight = data.state;
+                    break;
+            }
         }
     })
 
