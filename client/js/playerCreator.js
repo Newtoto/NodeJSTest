@@ -118,7 +118,7 @@ var DrawShapes = function(){
 
 DrawShapes();
 
-// Listen to player clicking on circles canvas
+// Listen to player clicking on shapes canvas
 document.addEventListener('mousedown', event => {
     var rect = shapeSelectCanvas.getBoundingClientRect();
     var x = event.clientX - rect.left;
