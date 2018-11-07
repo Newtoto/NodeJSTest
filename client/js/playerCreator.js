@@ -143,9 +143,6 @@ document.addEventListener('mousedown', event => {
 var GetPlayerInfo = function() {
     // Get username
     playerInfo.displayName = document.getElementById("usernameInput").value;
-    // Get icon
-    if(playerImage !== null)
-        playerInfo.icon = playerImage.src;
     // Get colour
     playerInfo.colour = colours[selectedColour];
     // Get shape
