@@ -15,10 +15,10 @@ var colours = [
 ];
 
 // Caculates spacing
-var circleMargin = 10;
-var circleRadius = 20;
-var leftOffsetX = circleMargin + circleRadius;
-var topOffsetY = circleMargin + circleRadius;
+var margin = 10;
+var radius = 20;
+var leftOffsetX = margin + radius;
+var topOffsetY = margin + radius;
 
 
 var DrawColours = function(){
@@ -34,20 +34,20 @@ var DrawColours = function(){
         // Select colour
         colourSelectContext.fillStyle = colours[i];
 
-        var x = (circleRadius * 2 + circleMargin) * i + leftOffsetX;
+        var x = (radius * 2 + margin) * i + leftOffsetX;
         var y = topOffsetY;
 
         // Default to circles
         if(shapes != undefined){
             if(shapes[selectedShape] == "circle")
-                DrawCircle(x, y, circleRadius, colourSelectContext);
+                DrawCircle(x, y, radius, colourSelectContext);
             else if(shapes[selectedShape] == "square")
-                DrawSquare(x - circleRadius, y - circleRadius, circleRadius * 2, colourSelectContext);
+                DrawSquare(x - radius, y - radius, radius * 2, colourSelectContext);
             else if(shapes[selectedShape] == "triangle")
-                DrawTriangle(x - circleRadius, y - circleRadius, circleRadius * 2, colourSelectContext);
+                DrawTriangle(x - radius, y - radius, radius * 2, colourSelectContext);
         }
         else
-            DrawCircle(x, y, circleRadius, colourSelectContext);
+            DrawCircle(x, y, radius, colourSelectContext);
     };
 };
 
@@ -60,9 +60,9 @@ document.addEventListener('mousedown', event => {
     var y = event.clientY - rect.top;
     
     // Make sure clicking is within y range of circles
-    if(y > circleMargin && y < circleRadius * 2 + circleMargin){
+    if(y > margin && y < radius * 2 + margin){
         // Calculate selected colour number from spacing
-        var colourNumber = Math.floor(x / ((circleRadius * 2) + circleMargin));
+        var colourNumber = Math.floor(x / ((radius * 2) + margin));
         
         if(colourNumber < colours.length)
         {
@@ -98,20 +98,20 @@ var DrawShapes = function(){
             shapeSelectContext.lineWidth = 5;
         }
 
-        var x = (circleRadius * 2 + circleMargin) * i + leftOffsetX;
+        var x = (radius * 2 + margin) * i + leftOffsetX;
         var y = topOffsetY;
 
         if(shapes[i] == "circle"){
             // Draw circle
-            DrawCircle(x, y, circleRadius, shapeSelectContext);
+            DrawCircle(x, y, radius, shapeSelectContext);
         }
         else if (shapes[i] == "square"){
             // Draw square
-            DrawSquare(x - circleRadius, y - circleRadius, circleRadius * 2, shapeSelectContext);
+            DrawSquare(x - radius, y - radius, radius * 2, shapeSelectContext);
         }
         else if (shapes[i] == "triangle"){
             // Draw triangle
-            DrawTriangle(x - circleRadius, y - circleRadius, circleRadius * 2, shapeSelectContext);
+            DrawTriangle(x - radius, y - radius, radius * 2, shapeSelectContext);
         }
     };
 };
@@ -125,9 +125,9 @@ document.addEventListener('mousedown', event => {
     var y = event.clientY - rect.top;
     
     // Make sure clicking is within y range of shapes
-    if(y > circleMargin && y < circleRadius * 2 + circleMargin){
+    if(y > margin && y < radius * 2 + margin){
         // Calculate selected colour number from spacing
-        var shapeNumber = Math.floor(x / ((circleRadius * 2) + circleMargin));
+        var shapeNumber = Math.floor(x / ((radius * 2) + margin));
         
         if(shapeNumber < shapes.length)
         {
